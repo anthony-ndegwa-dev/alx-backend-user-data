@@ -4,7 +4,7 @@
 import os
 import logging
 import re
-import mysql.connector
+from mysql.connector import connection
 from typing import List
 
 
@@ -53,13 +53,13 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> mysql.connector.connection.MySQLConnection:
+def get_db() -> connection.MySQLConnection:
     """Creates a connector to a database."""
     db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
     db_name = os.getenv("PERSONAL_DATA_DB_NAME", "")
     db_user = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
     db_pwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
-    connection = mysql.connector.connect(
+    connection = connection.MySQLConnection(
         host=db_host,
         port=3306,
         user=db_user,
