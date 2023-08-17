@@ -83,6 +83,16 @@ def reset_password_token(email: str) -> str
 
 
 def update_password(email: str, reset_token: str, new_password: str) -> None
+    """Test user's password updating."""
+    url = "{}/reset_password".format(BASE_URL)
+    body = {
+        'email': email,
+        'reset_token': reset_token,
+        'new_password': new_password,
+    }
+    res = requests.put(url, data=body)
+    assert res.status_code == 200
+    assert res.json() == {"email": email, "message": "Password updated"}
 
 
 EMAIL = "guillaume@holberton.io"
