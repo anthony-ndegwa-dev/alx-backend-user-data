@@ -3,6 +3,20 @@
 """
 
 def register_user(email: str, password: str) -> None
+    """Test user registration"""
+    url = "{}/users".format(BASE_URL)
+    body = {
+        'email': email,
+        'password': password,
+    }
+    res = requests.post(url, data=body)
+    assert res.status_code == 200
+    assert res.json() == {"email": email, "message": "user created"}
+    res = requests.post(url, data=body)
+    assert res.status_code == 400
+    assert res.json() == {"message": "email already registered"}
+
+
 def log_in_wrong_password(email: str, password: str) -> None
 def log_in(email: str, password: str) -> str
 def profile_unlogged() -> None
