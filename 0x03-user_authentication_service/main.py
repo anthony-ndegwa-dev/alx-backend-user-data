@@ -3,7 +3,7 @@
 """
 
 
-def register_user(email: str, password: str) -> None
+def register_user(email: str, password: str) -> None:
     """Test user registration"""
     url = "{}/users".format(BASE_URL)
     body = {
@@ -18,7 +18,7 @@ def register_user(email: str, password: str) -> None
     assert res.json() == {"message": "email already registered"}
 
 
-def log_in_wrong_password(email: str, password: str) -> None
+def log_in_wrong_password(email: str, password: str) -> None:
     """Test wrong password log in"""
     url = "{}/sessions".format(BASE_URL)
     body = {
@@ -29,7 +29,7 @@ def log_in_wrong_password(email: str, password: str) -> None
     assert res.status_code == 401
 
 
-def log_in(email: str, password: str) -> str
+def log_in(email: str, password: str) -> str:
     """Test log in."""
     url = "{}/sessions".format(BASE_URL)
     body = {
@@ -42,14 +42,14 @@ def log_in(email: str, password: str) -> str
     return res.cookies.get('session_id')
 
 
-def profile_unlogged() -> None
+def profile_unlogged() -> None:
     """Test profile information retrieval while logged out."""
     url = "{}/profile".format(BASE_URL)
     res = requests.get(url)
     assert res.status_code == 403
 
 
-def profile_logged(session_id: str) -> None
+def profile_logged(session_id: str) -> None:
     """Test profile information retrieval while logged in."""
     url = "{}/profile".format(BASE_URL)
     req_cookies = {
@@ -60,7 +60,7 @@ def profile_logged(session_id: str) -> None
     assert "email" in res.json()
 
 
-def log_out(session_id: str) -> None
+def log_out(session_id: str) -> None:
     """Test logging out of a session."""
     url = "{}/sessions".format(BASE_URL)
     req_cookies = {
@@ -71,7 +71,7 @@ def log_out(session_id: str) -> None
     assert res.json() == {"message": "Bienvenue"}
 
 
-def reset_password_token(email: str) -> str
+def reset_password_token(email: str) -> str:
     """Test password reset."""
     url = "{}/reset_password".format(BASE_URL)
     body = {'email': email}
@@ -83,7 +83,7 @@ def reset_password_token(email: str) -> str
     return res.json().get('reset_token')
 
 
-def update_password(email: str, reset_token: str, new_password: str) -> None
+def update_password(email: str, reset_token: str, new_password: str) -> None:
     """Test user's password updating."""
     url = "{}/reset_password".format(BASE_URL)
     body = {
