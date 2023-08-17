@@ -18,6 +18,16 @@ def register_user(email: str, password: str) -> None
 
 
 def log_in_wrong_password(email: str, password: str) -> None
+    """Test wrong password log in"""
+    url = "{}/sessions".format(BASE_URL)
+    body = {
+        'email': email,
+        'password': password,
+    }
+    res = requests.post(url, data=body)
+    assert res.status_code == 401
+
+
 def log_in(email: str, password: str) -> str
 def profile_unlogged() -> None
 def profile_logged(session_id: str) -> None
