@@ -42,6 +42,12 @@ def log_in(email: str, password: str) -> str
 
 
 def profile_unlogged() -> None
+    """Test profile information retrieval while logged out."""
+    url = "{}/profile".format(BASE_URL)
+    res = requests.get(url)
+    assert res.status_code == 403
+
+
 def profile_logged(session_id: str) -> None
 def log_out(session_id: str) -> None
 def reset_password_token(email: str) -> str
